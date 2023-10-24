@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.streams.kstream.KStream;
 import org.springframework.stereotype.Component;
 
-import static com.example.config.KafkaTopicConfig.HONDA_SALE_TOPIC;
+import static com.example.config.KafkaTopicConfig.HONDA_SALES_TOPIC;
 
 /**
  * KStream is an abstraction of a record stream of KeyValue pairs, i.e., each record is an independent entity/event in the real world.
@@ -22,11 +22,11 @@ public class HondaSalesEventFilteringProcessor {
     public void process(KStream<String, CarSaleEvent> stream) {
         stream.filter((key, event) -> {
             if (HONDA_CAR_MAKE.equals(event.getMake())) {
-                log.info("Sending CarSaleEvent {} into the topic {}", event, HONDA_SALE_TOPIC);
+                log.info("Sending CarSaleEvent {} into the topic {}", event, HONDA_SALES_TOPIC);
                 return true;
             } else {
                 return false;
             }
-        }).to(HONDA_SALE_TOPIC);
+        }).to(HONDA_SALES_TOPIC);
     }
 }

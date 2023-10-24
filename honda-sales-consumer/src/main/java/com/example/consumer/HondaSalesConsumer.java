@@ -12,8 +12,8 @@ import static com.example.config.KafkaConsumerConfig.HONDA_SALES_TOPIC;
 @Slf4j
 public class HondaSalesConsumer {
 
-    @KafkaListener(topics = HONDA_SALES_TOPIC, groupId = KafkaConsumerConfig.CONSUMER_GROUP, containerFactory = "kafkaListenerContainerFactory")
+    @KafkaListener(topics = HONDA_SALES_TOPIC, containerFactory = "kafkaListenerContainerFactory")
     public void receive(ConsumerRecord<?, ?> consumerRecord) {
-        log.info("Received event '{}' from topic '{}'", consumerRecord, HONDA_SALES_TOPIC);
+        log.info("Received HondaSaleEvent '{}' from topic '{}'", consumerRecord.value(), HONDA_SALES_TOPIC);
     }
 }

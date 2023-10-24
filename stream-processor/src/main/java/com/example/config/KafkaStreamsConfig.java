@@ -33,7 +33,7 @@ import static org.apache.kafka.streams.StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_C
 @EnableKafkaStreams
 @Configuration
 public class KafkaStreamsConfig {
-    public final static String TOPIC = "car-sale-topic";
+    public final static String TOPIC = "car-sales-topic";
     @Value(value = "${spring.kafka.bootstrap-servers}")
     private String bootstrapAddress;
     @Autowired

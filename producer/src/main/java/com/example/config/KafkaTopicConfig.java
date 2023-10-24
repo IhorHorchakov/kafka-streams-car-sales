@@ -7,10 +7,10 @@ import org.springframework.kafka.config.TopicBuilder;
 
 @Configuration
 public class KafkaTopicConfig {
-    public final static String TOPIC = "car-sale-topic";
+    public final static String TOPIC = "car-sales-topic";
 
     @Bean
-    public NewTopic carSaleTopic() {
+    public NewTopic carSalesTopic() {
         return TopicBuilder
                 .name(TOPIC)
                 .partitions(1)
