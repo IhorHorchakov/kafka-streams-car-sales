@@ -77,6 +77,16 @@ services:
     networks:
       - application-network
 
+  dealership-sales-consumer:
+    container_name: dealership-sales-consumer
+    image: dealership-sales-consumer
+    depends_on:
+      - zookeeper
+    build:
+      context: dealership-sales-consumer
+    networks:
+      - application-network
+
 networks:
   application-network:
       driver: bridge

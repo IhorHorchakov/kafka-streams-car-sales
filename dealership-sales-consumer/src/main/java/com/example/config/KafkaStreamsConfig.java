@@ -1,9 +1,9 @@
 package com.example.config;
 
-import com.example.event.CarSaleEvent;
-import com.example.event.serge.CarSaleEventSerge;
-import com.example.processor.DealershipSalesEventMappingProcessor;
-import com.example.processor.HondaSalesEventFilteringProcessor;
+
+import com.example.consumer.DealershipSalesStreamConsumer;
+import com.example.event.DealershipSalesEvent;
+import com.example.event.serge.DealershipSalesEventSerge;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -34,13 +34,11 @@ import static org.apache.kafka.streams.StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_C
 @EnableKafkaStreams
 @Configuration
 public class KafkaStreamsConfig {
-    public final static String CAR_SALES_TOPIC = "car-sales-topic";
+    private final static String DEALERSHIP_SALES_TOPIC = "dealership-sales-topic";
     @Value(value = "${spring.kafka.bootstrap-servers}")
     private String bootstrapAddress;
     @Autowired
-    private HondaSalesEventFilteringProcessor hondaSalesEventFilteringProcessor;
-    @Autowired
-    private DealershipSalesEventMappingProcessor dealershipSalesEventMappingProcessor;
+    private DealershipSalesStreamConsumer consumer;
 
     @Bean(name = KafkaStreamsDefaultConfiguration.DEFAULT_STREAMS_CONFIG_BEAN_NAME)
     public KafkaStreamsConfiguration defaultKafkaStreamsConfig() {
@@ -71,10 +69,9 @@ public class KafkaStreamsConfig {
     }
 
     @Bean
-    public KStream<String, CarSaleEvent> carSaleEventKafkaStream(StreamsBuilder streamsBuilder) {
-        KStream<String, CarSaleEvent> stream = streamsBuilder.stream(CAR_SALES_TOPIC, Consumed.with(Serdes.String(), new CarSaleEventSerge()));
-        this.hondaSalesEventFilteringProcessor.process(stream);
-        this.dealershipSalesEventMappingProcessor.process(stream);
+    public KStream<String, DealershipSalesEvent> dealershipSalesEventKafkaStream(StreamsBuilder streamsBuilder) {
+        KStream<String, DealershipSalesEvent> stream = streamsBuilder.stream(DEALERSHIP_SALES_TOPIC, Consumed.with(Serdes.String(), new DealershipSalesEventSerge()));
+        this.consumer.consume(stream);
         return stream;
     }
 }

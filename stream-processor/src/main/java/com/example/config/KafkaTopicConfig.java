@@ -9,11 +9,21 @@ import org.springframework.kafka.config.TopicBuilder;
 @Configuration
 public class KafkaTopicConfig {
     public final static String HONDA_SALES_TOPIC = "honda-sales-topic";
+    public final static String DEALERSHIP_SALES_TOPIC = "dealership-sales-topic";
 
     @Bean
     public NewTopic hondaSalesTopic() {
         return TopicBuilder
                 .name(HONDA_SALES_TOPIC)
+                .partitions(1)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic dealershipSalesTopic() {
+        return TopicBuilder
+                .name(DEALERSHIP_SALES_TOPIC)
                 .partitions(1)
                 .replicas(1)
                 .build();

@@ -9,7 +9,7 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
 /**
- * A custom serializer/deserializer for the CarSaleEvent object data.
+ * A custom serializer/deserializer for the CarSaleEvent.
  */
 public class CarSaleEventSerge extends Serdes.WrapperSerde<CarSaleEvent> {
 

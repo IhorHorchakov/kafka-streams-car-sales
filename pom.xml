@@ -6,6 +6,7 @@
 		<module>producer</module>
         <module>stream-processor</module>
         <module>honda-sales-consumer</module>
+        <module>dealership-sales-consumer</module>
     </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
